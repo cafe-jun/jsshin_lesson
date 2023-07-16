@@ -26,48 +26,49 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## 의존설 설치
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## API 서버 기동
 
 ```bash
 # development
-$ npm run start
+$ npm run start:start
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## DB 테이블
+
+```sql
+CREATE TABLE `lesson` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `lessonType` int DEFAULT NULL,
+  `frequenciesType` int DEFAULT NULL,
+  `durationsType` int DEFAULT NULL,
+  `createdTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lessonStartTime` timestamp NULL DEFAULT NULL,
+  `coachId` int DEFAULT NULL,
+  `lessonEndTime` timestamp NULL DEFAULT NULL,
+  `password` varchar(300) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `userPhone` varchar(100) DEFAULT NULL,
+  `lessonId` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lesson_leesonTime_idx` (`lessonStartTime`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+```
+
+## env 설정
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+<변수>
+DB_HOST=<DATEBASE_HOST>
+DB_USERNAME=<DATEBASE_USER>
+DB_PASSWORD=<DATEBASE_PASSWORD>
+DB_DATABASE=<DATEBASE_NAME>
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
