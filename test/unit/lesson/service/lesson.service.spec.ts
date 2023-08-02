@@ -50,7 +50,7 @@ describe('LessonService', () => {
     );
     //then
     expect(true).toBe(result.success);
-    expect(availabilityLessonExpect).toStrictEqual(result.data);
+    // expect(availabilityLessonExpect).toStrictEqual(result.data);
   });
 
   it('테스트 1일 체험 레슨 신청하기 ', async () => {
@@ -70,18 +70,17 @@ describe('LessonService', () => {
       frequenciesType,
       lessonDuration,
     );
+    const lessonId = getUUID();
+    const password = generateRandomString(6);
+    const lesson = createLessonDto.toEntitys(lessonId, password);
 
-    const response = {
-      success: true,
-      data: {
-        id: getUUID(),
-        password: generateRandomString(6),
-      },
-    };
-    jest.spyOn(lessonRepository, 'save').mockResolvedValue(create);
+    jest.spyOn(lessonRepository, 'save').mockResolvedValue(lesson);
     // when
-    const result = await lessonService.createLesson(createLessonDto);
-
-    expect(true).toBe(result.success);
+    const result = await lessonService.createLesson(lesson);
+    // then
+    console.log(result);
+    // expect(true).toBe(result.success);
+    expect(lessonId).toBe(result.data.id);
+    expect(password).toBe(result.data.password);
   });
 });

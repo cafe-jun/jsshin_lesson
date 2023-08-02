@@ -19,6 +19,7 @@ import {
 import { LessonType } from './type/lesson.type';
 import { CoachType } from './type/coach.type';
 import { LessonDuration } from './type/lesson-duration.type';
+import { Lesson } from '@app/entity/lesson.entity';
 
 export interface INextLessonDate {
   [date: string]: string[];
@@ -52,17 +53,15 @@ export class LessonService {
       data: this.nextLessonDate,
     };
   }
-  async createLesson(dto: CreateLessonRequestDto) {
+  async createLesson(lessons: Lesson) {
     try {
-      const password = await generateRandomString(6);
-      const lessons = dto.toEntitys(getUUID(), password);
-
       await this.lessonRepository.save(lessons);
+
       return {
         success: true,
         data: {
-          id: lessons[0].lessonId,
-          password: lessons[0].password,
+          id: lessons.lessonId,
+          password: lessons.password,
         },
       };
     } catch (error) {

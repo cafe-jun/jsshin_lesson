@@ -12,6 +12,14 @@ $ npm run start:start
 
 ```
 
+## 테스트 실행
+
+```bash
+# development
+$ npm run test
+
+```
+
 ## DB 테이블
 
 ```sql

@@ -62,8 +62,6 @@ export class Lesson extends AuditingFieldEntity {
     frequenciesType: number,
     durationsType: number,
     password: string,
-    lessonStartTime: Date,
-    lessonEndTime: Date,
     lessonId: string,
   ): Lesson {
     const lesson = new Lesson();
@@ -74,8 +72,6 @@ export class Lesson extends AuditingFieldEntity {
     lesson.frequenciesType = frequenciesType;
     lesson.durationsType = durationsType;
     lesson.password = password;
-    lesson.lessonStartTime = lessonStartTime;
-    lesson.lessonEndTime = lessonEndTime;
     lesson.lessonId = lessonId;
     return lesson;
   }

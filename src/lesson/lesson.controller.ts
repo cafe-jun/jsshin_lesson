@@ -1,3 +1,4 @@
+import { generateRandomString, getUUID } from './../util/random.util';
 import { CreateLessonRequestDto } from './dto/create-leeson-request.dto';
 import { LessonService } from './lesson.service';
 import { Lesson } from './../entity/lesson.entity';
@@ -24,7 +25,9 @@ export class LessonController {
 
   @Post('/')
   async createLesson(@Body() dto: CreateLessonRequestDto) {
-    return await this.lessonService.createLesson(dto);
+    return await this.lessonService.createLesson(
+      dto.toEntitys(getUUID(), generateRandomString(6)),
+    );
   }
 
   @Put('/')
@@ -32,8 +35,8 @@ export class LessonController {
     return await this.lessonService.updateLesson(dto);
   }
 
-  @Delete('/')
-  async deleteLesson(@Body() dto: CreateLessonRequestDto) {
-    return await this.lessonService.createLesson(dto);
-  }
+  // @Delete('/')
+  // async deleteLesson(@Body() dto: CreateLessonRequestDto) {
+  //   return await this.lessonService.createLesson(dto);
+  // }
 }

@@ -32,9 +32,9 @@ export class CreateLessonRequestDto {
   @IsEnum(LessonDuration)
   lessonDuration: number;
 
-  @IsArray()
-  @ArrayNotEmpty()
-  lessonStartTimes: Date[];
+  // @IsArray()
+  // @ArrayNotEmpty()
+  // lessonStartTimes: Date[];
 
   @IsNotEmpty()
   @IsString({ message: '유저이름을 입력해주세요' })
@@ -44,32 +44,28 @@ export class CreateLessonRequestDto {
   @IsString({ message: '휴대폰번호를 입력해주세요' })
   userPhone: string;
 
-  toEntitys(lessonId: string, password: string): Lesson[] {
-    return this.lessonStartTimes.map((lessonStartTime) => {
-      return Lesson.of(
-        this.username,
-        this.userPhone,
-        this.coachId,
-        this.lessonType,
-        this.frequenciesType,
-        this.lessonDuration,
-        password,
-        lessonStartTime,
-        this.getLessonEndTime(this.lessonDuration, lessonStartTime),
-        lessonId,
-      );
-    });
+  toEntitys(lessonId: string, password: string): Lesson {
+    return Lesson.of(
+      this.username,
+      this.userPhone,
+      this.coachId,
+      this.lessonType,
+      this.frequenciesType,
+      this.lessonDuration,
+      password,
+      lessonId,
+    );
   }
-  private getLessonEndTime(
-    lessonDuration: number,
-    lessonStartTime: Date,
-  ): Date {
-    if (lessonDuration === LessonDuration.HALF_HOURS) {
-      return dayjs(lessonStartTime).add(30, 'minutes').toDate();
-    } else {
-      return dayjs(lessonStartTime).add(1, 'hour').toDate();
-    }
-  }
+  // private getLessonEndTime(
+  //   lessonDuration: number,
+  //   lessonStartTime: Date,
+  // ): Date {
+  //   if (lessonDuration === LessonDuration.HALF_HOURS) {
+  //     return dayjs(lessonStartTime).add(30, 'minutes').toDate();
+  //   } else {
+  //     return dayjs(lessonStartTime).add(1, 'hour').toDate();
+  //   }
+  // }
   static of(
     username: string,
     userPhone: string,
@@ -77,7 +73,6 @@ export class CreateLessonRequestDto {
     lessonType: number,
     frequenciesType: number,
     lessonDuration: number,
-    lessonStartTimes: Date[],
   ): CreateLessonRequestDto {
     const dto = new CreateLessonRequestDto();
     dto.username = username;
